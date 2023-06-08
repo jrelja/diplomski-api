@@ -1,13 +1,15 @@
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
+const cors = require("cors");
+require('dotenv').config();
 
-require('dotenv').config()
+app.use(express.json());
 
-app.use(express.json())
+const oglasiRouter = require('./routes/oglasi.router');
 
+// Use cors middleware to handle CORS headers
+app.use(cors());
 
-const oglasiRouter = require('./routes/oglasi.router')
+app.use("/api/v1/oglasi", oglasiRouter);
 
-app.use("/api/v1/oglasi", oglasiRouter)
-
-app.listen(process.env.PORT, () => console.log("Server is running on port 5000"))
+app.listen(process.env.PORT, () => console.log("Server is running on port 5000"));
